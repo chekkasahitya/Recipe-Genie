@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DishGenie - Welcome</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #fff8f0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    .wrapper {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    img.logo {
+      width: 320px; /* 👈 increased from 220px */
+      margin-bottom: 15px;
+    }
+
+    .intro {
+      font-size: 16px;
+      color: #444;
+      margin: 10px 0 20px;
+      line-height: 1.4;
+    }
+
+    .start-button {
+      font-size: 16px;
+      padding: 12px 28px;
+      background-color: #ff7e00;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .start-button:hover {
+      background-color: #e06600;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- ✅ Large Transparent Logo -->
+    <img src="{{ url_for('static', filename='logo.png') }}" class="logo" alt="DishGenie Logo">
+
+    <div class="intro">
+      Welcome to <strong>DishGenie</strong> – your magical kitchen companion!<br>
+      Turn your random ingredients into delicious dishes with just a click.
+    </div>
+
+    <a href="{{ url_for('form') }}">
+      <button class="start-button">Let's Start Cooking</button>
+    </a>
+  </div>
+</body>
+</html>

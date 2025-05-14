@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DishGenie</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff8f0;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .container {
+            padding: 40px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        img.logo {
+            width: 300px;
+            margin-bottom: 30px;
+        }
+
+        form input, form select {
+            display: block;
+            padding: 12px;
+            font-size: 16px;
+            margin: 10px auto;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 10px;
+            border: 2px solid #ccc;
+            background-color: white;
+            color: #333;
+            box-sizing: border-box;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+        }
+
+        form select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' width='14' height='14' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='20,50 70,100 120,50' stroke='%23666' stroke-width='15' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 12px;
+            cursor: pointer;
+        }
+
+        form input:focus, form select:focus {
+            border-color: #6495ed;
+            outline: none;
+        }
+
+        form button {
+            padding: 12px 24px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(to right, #f39c12, #e67e22);
+            border: none;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(243, 156, 18, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(230, 126, 34, 0.4);
+        }
+
+        textarea {
+            width: 100%;
+            height: 300px;
+            padding: 15px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .error {
+            color: red;
+            margin-top: 20px;
+        }
+
+        /* Fullscreen Loading Overlay */
+        #loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(#fff8f0, #fce0bd);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            animation: fadein 0.4s ease-in;
+        }
+
+        #loading-overlay.show {
+            display: flex;
+        }
+
+        .loading-content {
+            text-align: center;
+            animation: fadein 0.6s ease-in-out;
+        }
+
+        #loading-overlay img.pulse {
+            width: 300px;
+            max-width: 90vw;
+            margin-bottom: 30px;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        #loading-overlay p {
+            font-size: 20px;
+            color: #e67e22;
+            font-weight: bold;
+        }
+
+        @keyframes fadein {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ✅ Logo -->
+        <img src="{{ url_for('static', filename='logo.png') }}" class="logo" alt="DishGenie Logo">
+
+        <!-- ✅ Form -->
+        <form method="POST">
+            <input type="text" name="ingredients" placeholder="Enter ingredients (comma-separated)" required><br>
+            <select name="cuisine_type" required>
+                <option value="">Select Cuisine</option>
+                <option value="Indian">Indian</option>
+                <option value="Italian">Italian</option>
+                <option value="Mexican">Mexican</option>
+            </select><br>
+            <select name="difficulty_level" required>
+                <option value="">Select Difficulty</option>
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+            </select><br>
+            <button type="submit">Generate Recipe</button>
+        </form>
+
+        <!-- ✅ Error or Recipe -->
+        {% if recipe %}
+            <textarea readonly>{{ recipe }}</textarea>
+        {% elif error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+    </div>
+
+    <!-- ✅ Genie Loading Overlay -->
+    <div id="loading-overlay">
+        <div class="loading-content">
+            <img src="{{ url_for('static', filename='genie_loading.png') }}" alt="Loading Genie" class="pulse">
+            <p>Feeding your ingredients to the genie...</p>
+        </div>
+    </div>
+
+    <!-- ✅ JavaScript to trigger animation -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector("form");
+            const overlay = document.getElementById("loading-overlay");
+
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                overlay.classList.add("show");
+                form.querySelector("button").disabled = true;
+
+                setTimeout(() => {
+                    form.submit();
+                }, 600); // Delay to show animation
+            });
+        });
+    </script>
+</body>
+</html>
