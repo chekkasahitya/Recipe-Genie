@@ -58,7 +58,7 @@ def form():
 
         return generate_recipe_and_redirect(ingredients, cuisine_type, difficulty_level)
 
-    return render_template('form.html')
+    return render_template('index.html')
 
 def generate_recipe_and_redirect(ingredients, cuisine_type, difficulty_level):
     user_prompt = (
