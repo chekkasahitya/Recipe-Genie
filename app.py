@@ -1,4 +1,3 @@
-# app.py
 from flask import Flask, render_template, request, session, redirect, url_for
 import os
 import requests
@@ -80,13 +79,13 @@ def generate_recipe_and_redirect(ingredients, cuisine_type, difficulty_level):
     )
 
     try:
-        url = "https://openrouter.ai/api/v1/chat/completions"
+        url = "https://api.openai.com/v1/chat/completions"  # ✅ Using OpenAI API
         headers = {
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json"
         }
         payload = {
-            "model": "openai/gpt-4o-mini",
+            "model": "gpt-3.5-turbo",  # ✅ OpenAI compatible model
             "messages": [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
