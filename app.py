@@ -124,5 +124,7 @@ def result():
     error = session.get('error')
     return render_template('result.html', recipe=recipe, error=error, background='ingredients_background.jpg')
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))  # Get the port from the environment
+    app.run(host="0.0.0.0", port=port)  
