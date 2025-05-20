@@ -5,6 +5,7 @@ import requests
 from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 
+
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
@@ -126,5 +127,6 @@ def result():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Get the port from the environment
-    app.run(host="0.0.0.0", port=port)  
+    port = int(os.environ.get("PORT", 5001))  # Get the port from the environment
+    app.run(host="0.0.0.0", port=port)        # Bind to 0.0.0.0 for Render
+
