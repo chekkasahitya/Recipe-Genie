@@ -2,6 +2,7 @@
 
 **Dish Genie** is a Python Flask-based web application that helps users find delicious recipes across Indian, Italian, and Mexican cuisines. With a clean interface, downloadable PDFs, and stylish visuals, it's your personal kitchen assistant!
 
+Try out the app on: https://recipe-genie-zqak.onrender.com
 ---
 
 ## 🚀 Features
@@ -119,4 +120,5 @@ This project is licensed under the **MIT License** — feel free to use, share, 
 ---
 
 Enjoy cooking with **Dish Genie**! 🍳✨
+
 
